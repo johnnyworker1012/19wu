@@ -32,10 +32,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec'
   gem 'rspec-rails'
   gem 'jasmine', '1.3.0'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'thin'
 end
 
 group :test do
