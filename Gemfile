@@ -60,6 +60,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
 
 group :assets do
