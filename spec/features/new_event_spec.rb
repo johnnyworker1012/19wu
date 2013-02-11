@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-feature 'new event', :js => true do
+feature 'new event' do
   let(:user) { create :user }
   let(:submit) { I18n.t('helpers.submit.event.create') }
   let(:flash) { I18n.t('flash.events.created') }
   let(:attributes) { attributes_for(:event, :markdown) }
   before { sign_in }
 
-  scenario 'I create the event with valid attributes' do
+  scenario 'I create the event with valid attributes', :js => true do
     visit new_event_path
 
     fill_in 'event_title', with: attributes[:title]
