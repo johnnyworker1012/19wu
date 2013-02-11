@@ -59,6 +59,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email'
+  gem 'database_cleaner'
 end
 
 group :assets do

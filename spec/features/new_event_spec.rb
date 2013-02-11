@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'new event' do
+feature 'new event', :js => true do
   let(:user) { create :user }
   let(:submit) { I18n.t('helpers.submit.event.create') }
   let(:flash) { I18n.t('flash.events.created') }

@@ -66,6 +66,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     daemons (1.1.9)
+    database_cleaner (0.9.1)
     delayed_job (3.0.4)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.3)
@@ -299,6 +300,7 @@ DEPENDENCIES
   capybara-email
   carrierwave
   coffee-rails (~> 3.2.1)
+  database_cleaner
   delayed_job_active_record
   devise
   factory_girl_rails (~> 4.0)
