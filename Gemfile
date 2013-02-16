@@ -20,6 +20,7 @@ gem 'has_html_pipeline'
 gem 'kramdown', :platform => [:jruby]
 gem 'gravtastic'
 gem 'cancan'
+gem 'rolify'
 
 group :pg do
   gem 'pg', :platform => [:ruby, :mswin, :mingw]

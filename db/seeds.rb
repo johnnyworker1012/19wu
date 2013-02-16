@@ -6,4 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+#initialize roles
+puts "initializing roles"
+Settings.roles.each do |role|
+  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
+end
+
+#intialize different roles of users
+puts "initializing system adminstrator"
+admin = User.find_or_create_by_login_and_email('admin', 'admin@19wu.com', :password => '666666')
+admin.add_role :admin
+admin.confirm!
+
+puts "initializing a demo user"
 User.find_or_create_by_login_and_email('demo', 'demo@19wu.com', :password => '666666').confirm!
+

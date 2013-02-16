@@ -8,6 +8,7 @@ NineteenWu::Application.routes.draw do
   get 'joined_events', to: "events#joined"
   match '/photos', to: "photo#create", :via => [:post, :put]
   post "/content/preview/" => "home#content_preview"
+  get '/admin' => 'admin#index'
 
   authenticated :user do
     root to: "home#index"

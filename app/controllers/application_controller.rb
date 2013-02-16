@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to :back, :alert => exception.message
+  end
+
   after_filter :store_location # http://git.io/-lVTIA
 
   def user_path(user_or_login)

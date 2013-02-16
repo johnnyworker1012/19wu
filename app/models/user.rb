@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   has_one :profile
   extend FriendlyId
 

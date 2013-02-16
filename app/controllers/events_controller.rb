@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
   prepend_before_filter :authenticate_user!, except: [:show]
-
   # GET /events
   # GET /events.json
+
   def index
     @events = current_user.events
 
