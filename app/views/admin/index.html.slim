@@ -1,4 +1,20 @@
 h2 Welcome To Administraion Panel
 ul.users
   - @users.each do |user|
-    li =user.email
+
+    - next if user.invitation.nil?
+
+    table cellpadding="20" 
+      tr
+        td =link_to user.email, user_path(user)
+     
+        - if user.invitation.activated==true
+          td = link_to 'actived', '#', :class => 'btn btn-info pull-right disabled'
+        - if user.invitation.code.nil? 
+          td =link_to 'approve me', approve_invitations_path(:email => user.email), :method => :post, :class => 'btn btn-info pull-right'
+        - if !user.invitation.code.nil? && user.invitation.activated == false
+          td =link_to 'approved', '#', :class => 'btn btn-info pull-right disabled'
+
+          
+
+

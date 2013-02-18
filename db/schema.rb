@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213134532) do
+ActiveRecord::Schema.define(:version => 20130216133853) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(:version => 20130213134532) do
   end
 
   add_index "groups", ["slug"], :name => "index_groups_on_slug", :unique => true
+
+  create_table "invitations", :force => true do |t|
+    t.string   "code"
+    t.boolean  "activated",  :default => false
+    t.integer  "user_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
 
   create_table "photos", :force => true do |t|
     t.integer  "user_id",    :null => false

@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :event_participants
   has_many :joined_events, :through => :event_participants, :source => :event
+  has_one :invitation
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable
   # :lockable, :timeoutable and :omniauthable

@@ -10,6 +10,13 @@ NineteenWu::Application.routes.draw do
   post "/content/preview/" => "home#content_preview"
   get '/admin' => 'admin#index'
 
+  scope "/admin" do
+    resources :invitations do
+      post 'authenticate', :on => :collection
+      post 'approve', :on => :collection
+    end
+  end
+
   authenticated :user do
     root to: "home#index"
   end

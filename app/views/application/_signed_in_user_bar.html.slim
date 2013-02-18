@@ -1,6 +1,6 @@
 ul.user-bar.pull-right
   li
-    = link_to 'Admin', :controller => "admin", :action => "index"
+    = link_to 'Admin Panel', :controller => "admin", :action => "index"
   li
     = link_to user_path(current_user), :title => t('devise.navigation.home') do
       = image_tag current_user.gravatar_url(:size => 20), :class => 'gravatar'

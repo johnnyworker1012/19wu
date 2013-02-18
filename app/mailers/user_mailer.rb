@@ -4,4 +4,9 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     mail(:to => user.email, :subject => I18n.t('email.welcome.subject')).deliver
   end
+
+  def invitation_mail(user)
+    @user = user
+    mail(:to => @user.email, :subject => "Invitation").deliver
+  end
 end

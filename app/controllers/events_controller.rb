@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
   prepend_before_filter :authenticate_user!, except: [:show]
+  before_filter :check_invitation, only: [:new]
+
   # GET /events
   # GET /events.json
 
@@ -30,6 +32,7 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
+
     @event = current_user.events.new
 
     respond_to do |format|
@@ -93,4 +96,28 @@ class EventsController < ApplicationController
 
     redirect_to event, notice: 'you has joined this event'
   end
+
+  private 
+    
+  def check_invitation
+
+    invitation = current_user.invitation
+   
+    #check whether the user is activated 
+    if !invitation.nil? && invitation.activated == true
+      return
+    else
+      #if user didn't request the invitation or has received invitation code but not activated
+      if invitation.nil? || (!invitation.code.nil? && invitation.activated == false) 
+        redirect_to new_invitation_path
+      else
+        #user has requested an invitation but the admin has not approved his request
+        if !invitation.nil? && invitation.code.nil? 
+          redirect_to root_path, :alert => "your request has not been approved, please wait"
+        end
+      end
+    end
+
+  end
+
 end
