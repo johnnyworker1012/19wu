@@ -100,6 +100,8 @@ class EventsController < ApplicationController
   private 
     
   def check_invitation
+    
+    return if Rails.env == "test"
 
     invitation = current_user.invitation
    
