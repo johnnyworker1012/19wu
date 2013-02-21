@@ -2,6 +2,10 @@
 defaults: &defaults
   time_zone: 'Beijing'
   default_locale: 'zh-CN'
+  
+  roles: [admin,user]
+
+  internal_testing: true
 
   # Used to generate URL in the email. Must be the same of the domain of the
   # server.
