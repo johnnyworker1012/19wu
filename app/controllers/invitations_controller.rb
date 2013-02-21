@@ -29,12 +29,13 @@ class InvitationsController < ApplicationController
   end
 
   def approve
+    authorize! :approve, current_user 
     #after the admin approve the invitation request
     #an invitation code will be generated and sent to the user
     user = User.find_by_email(params[:email])
     invitation = user.invitation
     invitation.generate_code
-    redirect_to '/admin'
+    redirect_to invitations_path 
   end
 
   def create

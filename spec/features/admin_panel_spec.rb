@@ -17,7 +17,7 @@ end
 
 feature 'admin panel with admin user' do
   given(:admin) {create(:user, :admin, :confirmed)}
-  given(:not_approved_user) {create(:user, :internal_test_not_approved )}
+  given(:unapproved_user) {create(:user, :internal_test_not_approved, :confirmed )}
 
   background do
     login_user admin
@@ -27,6 +27,11 @@ feature 'admin panel with admin user' do
 
     click_link(I18n.t('admin.entry_link')) 
     page.should have_content(I18n.t('admin.header'))
+    email = find(:css, '.email').text
+    click_link(I18n.t('admin.buttons.approve'))
+    open_email(email)
+    expect(current_email).to have_content(I18n.t('internal_testing.email.subject'))
+     
 
   end
 
