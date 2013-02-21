@@ -3,10 +3,11 @@
     = simple_form_for(@invitation, :url => authenticate_invitations_path, :html => { :method => :post }) do |f|
       fieldset
         legend
-          h2 Invitation Code
-          = link_to 'Request New Invitation Code', invitations_path, :method => :post 
+          h2 =I18n.t('internal_testing.invitation.request_box_title')
 
         .form-inputs
-          = f.input :code
+          = f.input :code, label:false
         .control-group
-          = f.submit 'Submit Invitation Code', :class => 'btn btn-primary'
+          = f.submit I18n.t('internal_testing.buttons.submit_invitation'), :class => 'btn btn-primary'
+        .control-group
+          = link_to I18n.t('internal_testing.invitation.request_invitation'), invitations_path, :method => :post 

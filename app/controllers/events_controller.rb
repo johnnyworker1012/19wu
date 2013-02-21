@@ -101,7 +101,7 @@ class EventsController < ApplicationController
     
   def check_invitation
     
-    return if Rails.env == "test"
+    return if !Settings.internal_testing 
 
     invitation = current_user.invitation
    
@@ -115,7 +115,7 @@ class EventsController < ApplicationController
       else
         #user has requested an invitation but the admin has not approved his request
         if !invitation.nil? && invitation.code.nil? 
-          redirect_to root_path, :alert => "your request has not been approved, please wait"
+          redirect_to root_path, :alert => I18n.t('internal_testing.alerts.request_not_approved')
         end
       end
     end

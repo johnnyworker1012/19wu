@@ -24,9 +24,7 @@ class InvitationsController < ApplicationController
     #an invitation code will be generated and sent to the user
     user = User.find_by_email(params[:email])
     invitation = user.invitation
-    invitation.code = Digest::MD5.hexdigest(user.email + Time.now.to_s)
-    invitation.save
-    UserMailer.delay.invitation_mail(user)
+    invitation.generate_code
     redirect_to '/admin'
   end
 
@@ -36,16 +34,12 @@ class InvitationsController < ApplicationController
       invitation = Invitation.new
       invitation.user_id = current_user.id
       invitation.save
-      redirect_to root_path, :alert => "a invitation request has been made, please waiting for approval"
+      redirect_to root_path, :alert => I18n.t('internal_testing.alerts.after_invitation_made')
     else
-      if invitation.code.nil?
-      #mean has been not approved
-        redirect_to root_path, :alert => "You invitaion request has not been approved, please wait...."
-      else
+      if !invitation.code.nil?
         #probably admin has approved, but you forget the invitation code and wanna create a new one
-        invitation.code = nil
-        invitation.save
-        redirect_to root_path, :alert => "a invitation request has been made, please wait for approval"
+        invitation.generate_code
+        redirect_to root_path, :alert => I18n.t('internal_testing.alerts.resend_invitation_after_approved')
       end
     end
   end
@@ -56,13 +50,13 @@ class InvitationsController < ApplicationController
     code = params[:invitation][:code]
 
     if code.empty? 
-      redirect_to new_invitation_path, :alert => "please input code"
+      redirect_to new_invitation_path, :alert => I18n.t('internal_testing.alerts.empty_invitation')
     else
       invitation = current_user.invitation
 
       #if the user has not requested an invitation, ask him to request a new one
       if invitation.nil?
-        redirect_to new_invitation_path, :alert => "you have not requested an invitation,please do it in the link below"
+        redirect_to new_invitation_path, :alert => I18n.t('internal_testing.alerts.not_requested_invitation') 
       else 
         #if the invitation code submitted by the user is correct, make him activated
         if invitation.authenticate(code) 
@@ -70,7 +64,7 @@ class InvitationsController < ApplicationController
           invitation.save
           redirect_to new_event_path
         else
-          redirect_to new_invitation_path, :alert => "Please input correct invitation code"
+          redirect_to new_invitation_path, :alert => I18n.t('internal_testing.alerts.correct_invitation_required')
         end
       end
     end

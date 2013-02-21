@@ -12,5 +12,11 @@ class Invitation < ActiveRecord::Base
       false
     end
   end
+  
+  def generate_code
+    self.code = Digest::MD5.hexdigest(self.user.email + Time.now.to_s)
+    self.save
+    UserMailer.delay.invitation_mail(self.user)
+  end
 
 end

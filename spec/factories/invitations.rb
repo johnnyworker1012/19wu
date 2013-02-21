@@ -2,5 +2,12 @@
 
 FactoryGirl.define do
   factory :invitation do
+    code nil
+    activated false
   end
+
+  trait :activated do
+    activated true
+  end
+  
 end

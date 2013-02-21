@@ -83,6 +83,8 @@ zh-CN:
       checked_in: "%{name}已签到"
       failure:
         event_creator_mismatch: "只有活动的创建者可以进行操作"
+    admin:
+      permission_not_granted: "您没有权限进入管理员界面"
 
   views:
     edit: "修改"
@@ -104,3 +106,12 @@ zh-CN:
     profiles:
       show:
         title: "个人资料"
+
+  admin:
+    entry_link: "管理员面板"
+    header: "欢迎来到管理员界面"
+    
+    buttons:
+      approve: "批准邀请"
+      
+    

@@ -62,6 +62,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email'
+  gem 'simplecov', :require => false
 end
 
 group :assets do

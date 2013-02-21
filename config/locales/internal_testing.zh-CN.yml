@@ -1,0 +1,19 @@
+zh-CN:
+  internal_testing:
+    alerts:
+      request_not_approved: "抱歉，你的邀请请求还没批准。"
+      empty_invitation: "邀请码不能为空"
+      not_requested_invitation: "您还没有请求邀请，请先请求邀请。"
+      correct_invitation_required: "请输入正确的邀请码"
+      after_invitation_made: "您的邀请请求已经发出，请等待批准"
+      resend_invitation_after_approved: "新的邀请码已经发到您的邮箱，请查收"
+    
+    invitation:
+      request_box_title: "请输入邀请码"
+      request_invitation: "如果您没有邀请码，请点击这里申请"
+      
+    buttons:
+      submit_invitation: "提交邀请码"
+    
+    email:
+      subject: "您的邀请码"

@@ -7,6 +7,6 @@ class UserMailer < ActionMailer::Base
 
   def invitation_mail(user)
     @user = user
-    mail(:to => @user.email, :subject => "Invitation").deliver
+    mail(:to => @user.email, :subject => I18n.t('internal_testing.email.subject')).deliver
   end
 end
