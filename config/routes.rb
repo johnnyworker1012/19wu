@@ -9,11 +9,13 @@ NineteenWu::Application.routes.draw do
   match '/photos', to: "photo#create", :via => [:post, :put]
   post "/content/preview/" => "home#content_preview"
 
+  resources :invitations do
+    post 'authenticate', :on => :collection
+    post 'approve', :on => :collection
+  end
+
   scope "/admin" do
-    resources :invitations do
-      post 'authenticate', :on => :collection
-      post 'approve', :on => :collection
-    end
+    resources :invitations
   end
 
   authenticated :user do
