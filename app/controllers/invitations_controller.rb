@@ -2,6 +2,15 @@ class InvitationsController < ApplicationController
   prepend_before_filter :authenticate_user!
 
 
+  def index
+    authorize! :index, current_user 
+    @invitations = Invitation.unapproved_invitations
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def new
 
     @invitation = current_user.invitation

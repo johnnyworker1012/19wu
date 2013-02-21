@@ -1,0 +1,12 @@
+h2 =I18n.t('admin.header') 
+ul.invitations
+  - @invitations.each do |invitation|
+
+    table cellpadding="15" 
+      tr
+          td =link_to invitation.user.email, user_path(invitation.user)
+          td =link_to I18n.t('admin.buttons.approve'), approve_invitations_path(:email => invitation.user.email), :method => :post, :class => 'btn btn-info pull-right'
+
+          
+
+

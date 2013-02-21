@@ -19,4 +19,8 @@ class Invitation < ActiveRecord::Base
     UserMailer.delay.invitation_mail(self.user)
   end
 
+  def self.unapproved_invitations
+    self.where("code IS NULL")
+  end
+
 end
