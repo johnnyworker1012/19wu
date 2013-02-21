@@ -14,10 +14,6 @@ NineteenWu::Application.routes.draw do
     post 'approve', :on => :collection
   end
 
-  scope "/admin" do
-    resources :invitations
-  end
-
   authenticated :user do
     root to: "home#index"
   end
