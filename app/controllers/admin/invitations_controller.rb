@@ -1,5 +1,5 @@
 class Admin::InvitationsController < Admin::AdminController
-  skip_load_and_authorize_resource :except => [:index, :approve]
+  skip_load_and_authorize_resource :except => [:index, :update]
 
   def index
     @invitations = Invitation.unapproved_invitations
