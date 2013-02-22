@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe InvitationsController do
+describe Admin::InvitationsController do
 end

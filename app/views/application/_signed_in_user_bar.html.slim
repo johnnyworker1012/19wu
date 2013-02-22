@@ -1,6 +1,6 @@
 ul.user-bar.pull-right
   li
-    = link_to I18n.t('admin.entry_link'), invitations_path 
+    = link_to I18n.t('admin.entry_link'), admin_invitations_path 
   li
     = link_to user_path(current_user), :title => t('devise.navigation.home') do
       = image_tag current_user.gravatar_url(:size => 20), :class => 'gravatar'

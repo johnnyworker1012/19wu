@@ -1,6 +1,5 @@
-class InvitationsController < ApplicationController
-  prepend_before_filter :authenticate_user!
-  load_and_authorize_resource :only => [:index, :approve]
+class Admin::InvitationsController < Admin::AdminController
+  skip_load_and_authorize_resource :except => [:index, :approve]
 
   def index
     @invitations = Invitation.unapproved_invitations
@@ -27,14 +26,14 @@ class InvitationsController < ApplicationController
     end
   end
 
-  def approve
+  #actually update action is to approve the invitation
+  def update
 
     #after the admin approve the invitation request
     #an invitation code will be generated and sent to the user
-    user = User.find_by_email(params[:email])
-    invitation = user.invitation
+    invitation = Invitation.find(params[:id])
     invitation.generate_code
-    redirect_to invitations_path 
+    redirect_to admin_invitations_path 
   end
 
   def create
@@ -59,13 +58,13 @@ class InvitationsController < ApplicationController
     code = params[:invitation][:code]
 
     if code.empty? 
-      redirect_to new_invitation_path, :alert => I18n.t('internal_testing.alerts.empty_invitation')
+      redirect_to new_admin_invitation_path, :alert => I18n.t('internal_testing.alerts.empty_invitation')
     else
       invitation = current_user.invitation
 
       #if the user has not requested an invitation, ask him to request a new one
       if invitation.nil?
-        redirect_to new_invitation_path, :alert => I18n.t('internal_testing.alerts.not_requested_invitation') 
+        redirect_to new_admin_invitation_path, :alert => I18n.t('internal_testing.alerts.not_requested_invitation') 
       else 
         #if the invitation code submitted by the user is correct, make him activated
         if invitation.authenticate(code) 
@@ -73,7 +72,7 @@ class InvitationsController < ApplicationController
           invitation.save
           redirect_to new_event_path
         else
-          redirect_to new_invitation_path, :alert => I18n.t('internal_testing.alerts.correct_invitation_required')
+          redirect_to new_admin_invitation_path, :alert => I18n.t('internal_testing.alerts.correct_invitation_required')
         end
       end
     end

@@ -111,7 +111,7 @@ class EventsController < ApplicationController
     else
       #if user didn't request the invitation or has received invitation code but not activated
       if invitation.nil? || (!invitation.code.nil? && invitation.activated == false) 
-        redirect_to new_invitation_path
+        redirect_to new_admin_invitation_path
       else
         #user has requested an invitation but the admin has not approved his request
         if !invitation.nil? && invitation.code.nil? 

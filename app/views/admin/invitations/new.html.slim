@@ -1,6 +1,6 @@
 .row
   .span4.offset4.well
-    = simple_form_for(@invitation, :url => authenticate_invitations_path, :html => { :method => :post }) do |f|
+    = simple_form_for(@invitation, :url => authenticate_admin_invitations_path, :html => { :method => :post }) do |f|
       fieldset
         legend
           h2 =I18n.t('internal_testing.invitation.request_box_title')
@@ -10,4 +10,4 @@
         .control-group
           = f.submit I18n.t('internal_testing.buttons.submit_invitation'), :class => 'btn btn-primary'
         .control-group
-          = link_to I18n.t('internal_testing.invitation.request_invitation'), invitations_path, :method => :post 
+          = link_to I18n.t('internal_testing.invitation.request_invitation'), admin_invitations_path, :method => :post 
