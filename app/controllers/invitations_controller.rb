@@ -1,9 +1,8 @@
 class InvitationsController < ApplicationController
   prepend_before_filter :authenticate_user!
-
+  load_and_authorize_resource :only => [:index, :approve]
 
   def index
-    authorize! :index, current_user 
     @invitations = Invitation.unapproved_invitations
 
     respond_to do |format|
@@ -29,7 +28,7 @@ class InvitationsController < ApplicationController
   end
 
   def approve
-    authorize! :approve, current_user 
+
     #after the admin approve the invitation request
     #an invitation code will be generated and sent to the user
     user = User.find_by_email(params[:email])
