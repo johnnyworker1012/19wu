@@ -3,7 +3,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :user
 
 
-  attr_accessible :code, :activated
+  attr_accessible :code, :activated, :user_id
 
   def authenticate(code)
     if self.code == code
@@ -11,6 +11,11 @@ class Invitation < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def activate
+    self.activated = true
+    self.save
   end
   
   def generate_code

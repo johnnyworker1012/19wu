@@ -39,9 +39,7 @@ class Admin::InvitationsController < Admin::AdminController
   def create
     invitation = current_user.invitation
     if invitation.nil?
-      invitation = Invitation.new
-      invitation.user_id = current_user.id
-      invitation.save
+      Invitation.create(:user_id => current_user.id)
       redirect_to root_path, :alert => I18n.t('internal_testing.alerts.after_invitation_made')
     else
       if !invitation.code.nil?
@@ -68,8 +66,7 @@ class Admin::InvitationsController < Admin::AdminController
       else 
         #if the invitation code submitted by the user is correct, make him activated
         if invitation.authenticate(code) 
-          invitation.activated = true
-          invitation.save
+          invitation.activate
           redirect_to new_event_path
         else
           redirect_to new_admin_invitation_path, :alert => I18n.t('internal_testing.alerts.correct_invitation_required')
