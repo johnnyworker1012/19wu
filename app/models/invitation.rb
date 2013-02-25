@@ -28,4 +28,12 @@ class Invitation < ActiveRecord::Base
     self.where("code IS NULL")
   end
 
+  def self.status(invitation)
+    return "not_requested" if invitation.nil? 
+
+    return "activated" if invitation.activated 
+
+    return invitation.code ? "approved" : "not_approved"
+  end
+
 end

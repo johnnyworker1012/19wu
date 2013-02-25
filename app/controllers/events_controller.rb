@@ -104,22 +104,18 @@ class EventsController < ApplicationController
     return if !Settings.internal_testing 
 
     invitation = current_user.invitation
-   
-    #check whether the user is activated 
-    if !invitation.nil? && invitation.activated == true
-      return
-    else
-      #if user didn't request the invitation or has received invitation code but not activated
-      if invitation.nil? || (!invitation.code.nil? && invitation.activated == false) 
-        redirect_to new_admin_invitation_path
-      else
-        #user has requested an invitation but the admin has not approved his request
-        if !invitation.nil? && invitation.code.nil? 
-          redirect_to root_path, :alert => I18n.t('internal_testing.alerts.request_not_approved')
-        end
-      end
-    end
 
+    status = Invitation.status(invitation)
+    
+    case status
+    when "activated"
+      return
+    when "not_requested", "approved"
+      redirect_to new_admin_invitation_path
+    when "not_approved"
+      redirect_to root_path, :alert => I18n.t('internal_testing.alerts.request_not_approved')
+    else return
+    end
   end
 
 end
