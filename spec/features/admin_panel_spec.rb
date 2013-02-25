@@ -9,8 +9,7 @@ feature 'admin panel with non-admin user' do
   end 
 
   scenario 'user who is not admin go to the panel' do
-    click_link(I18n.t('admin.entry_link')) 
-    page.should have_content(I18n.t('flash.admin.permission_not_granted'))
+    page.should_not have_content(I18n.t('admin.entry_link'))
   end
 
 end
