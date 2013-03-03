@@ -25,6 +25,10 @@ NineteenWu::Application.routes.draw do
       get 'account' => 'registrations#edit', :as => 'account'
     end
   end
+  scope '/retentions'do
+    get 'users' => 'retentions#show_users'
+  end
+
   devise_for :users, :controllers => { :registrations => "registrations", :invitations => 'invitations' }
 
   if defined?(MailsViewer)
